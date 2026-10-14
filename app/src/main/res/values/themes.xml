@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Shuju" parent="android:Theme.Material.Light.NoTitleBar" />
+    <!--
+      IMPORTANT: android:Theme.Material.NoTitleBar and
+      android:Theme.Material.Light.NoTitleBar do NOT exist in the Android framework.
+      Verified against AOSP core/res/res/values/public-final.xml, which only publishes:
+        android:Theme.Material.NoActionBar        (id 0x0103022e, dark)
+        android:Theme.Material.Light.NoActionBar  (id 0x01030241, light)
+      Referencing a non-existent NoTitleBar variant is what broke :app:processDebugResources
+      with "AAPT: error: resource android:style/...NoTitleBar not found".
+
+      The app renders a dark Compose theme (see ui/theme/Theme.kt), so the dark variant is
+      used to avoid a light flash during cold start.
+    -->
+    <style name="Theme.Shuju" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/app_window_background</item>
+    </style>
 </resources>
