@@ -1,0 +1,66 @@
+name: Build APK
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build Debug APK
+        run: gradle assembleDebug
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CryptoMtfDataFetcher-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Get version tag
+        id: get_tag
+        run: echo "tag=v$(date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          name: "八周期行情采集器 ${{ steps.get_tag.outputs.tag }}"
+          body: |
+            ## 八周期行情采集器 APK
+            - AI交易数据采集，配合 crypto-mtf-analyzer 技能使用
+            - 支持 BTC/ETH 8周期指标采集
+            - 数据源：Binance镜像 / Binance主站 / OKX（自动容灾）
+
+            ### 安装说明
+            1. 下载 `app-debug.apk`
+            2. 手机开启「允许未知来源安装」
+            3. 安装后点击「一键采集」获取数据
+            4. 复制数据文本，粘贴给 AI 进行分析
+          draft: false
+          prerelease: false
+          files: app/build/outputs/apk/debug/app-debug.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
