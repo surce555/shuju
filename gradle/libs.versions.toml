@@ -1,6 +1,7 @@
 [versions]
 agpVersion = "8.5.2"
 kotlinVersion = "1.9.24"
+composeCompilerVersion = "1.5.14"
 coreKtxVersion = "1.13.1"
 lifecycleRuntimeKtxVersion = "2.8.4"
 activityComposeVersion = "1.9.1"
@@ -26,4 +27,3 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agpVersion" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
