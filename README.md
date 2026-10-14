@@ -13,9 +13,19 @@
 - 📋 **一键复制**：格式化 Markdown 文本直接喂给 AI
 - 🐛 **调试日志**：内置日志面板，一键复制 Bug 信息
 
-## 直接下载 APK
+## 直接下载 APK（公开，无需登录）
 
-👉 **[点击前往 Releases 页面下载最新 APK](../../releases/latest)**
+📱 **手机扫码直接下载安装：**
+
+![扫码下载 APK](apk-download-qr.png)
+
+| 下载方式 | 链接 |
+|---|---|
+| 直接下载 APK（始终最新） | **[app-debug.apk](https://github.com/surce555/shuju/releases/latest/download/app-debug.apk)** |
+| 查看全部版本 | [Releases 页面](../../releases/latest) |
+
+> 仓库与 Release 均为公开，任何设备无需登录即可匿名下载。
+> 手机下载后需开启「允许安装未知来源应用」。
 
 ## 技术栈
 
